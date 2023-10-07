@@ -64,6 +64,37 @@ class FireDataUtils():
 
         return list_of_added_ids
     
+    def add_db_entry_from_report(self, latitude, longitude, area):
+        now = datetime.now()
+        now_time_str = additional_functions_api.convert_datetime_to_day_string(now)
+
+        try:
+            new_fire_data = FireData(
+                source="user",
+                latitude = latitude,
+                longitude = longitude,
+                brightness = None,
+                scan = area/3,
+                track = area/3,
+                acq_date = now_time_str,
+                acq_time = 0,
+                satellite = None,
+                confidence = 0.5,
+                instrument = None,
+                version = None,
+                bright_t31 = None,
+                frp = None,
+                daynight = None
+            )
+
+            db.session.add(new_fire_data)
+            db.session.commit()
+            return new_fire_data.id
+
+        except Exception as e:
+            flash(f"There was an error trying to add sat data to the db: {e}", category='error')
+            return None
+    
 
     def download_historical_data(self, num_years_past=5.0):
         threshold_date = datetime.strptime("2023-02-01", r"%Y-%m-%d")
@@ -71,7 +102,9 @@ class FireDataUtils():
 
         list_of_map_keys = ["9bfc8b15391d7e01d3861470367bf190", 
                             "9e87aa69d9afa85bd633db1031309c03",
-                            "bc871aa73ded57f050717f0b5f07b8b2"
+                            "bc871aa73ded57f050717f0b5f07b8b2",
+                            "0328e100c0a04e0ec224434631da3dbb",
+                            "2c4d62035ce638355f1eef936f50fb81"
                             ]
 
         init_date = datetime.now()
