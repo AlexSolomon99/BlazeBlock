@@ -1,16 +1,143 @@
-.base-container{
-    padding:0;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;800;900&display=swap');
+
+:root{
+    --primary: #FF0000;
+    --primary-light: #FF3333;
+    --primary-dark: #CC0000;
+
+    --header-1: 64px;
+    --header-2: 48px;
+    --header-3: 42px;
+    --header-4: 32px;
+
+    --text-medium: 18px;
+    --text-regular: 16px;
+    --text-light: 13px;
+
+    --font-weight-bold:700;
+    --font-weight-semi-bold: 600;
+    --font-weight-medium: 500;
+    --font-weight-regular:400;
+    --font-weight-light:300;
+
 }
 
-.nav-container{
-    margin-left:auto;
-    margin-right: auto;
+/* Temporary Stuff */
+
+body{
+    font-family: 'Poppins', sans-serif;
 }
 
-.navbar-buffer{
-    visibility: hidden;
+.btn{
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: var(--text-medium);
+    font-weight: var(--font-weight-medium);
 }
 
-.content{
-    background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+.btn-primary{
+    background-color: var(--primary);
+    color:white!important;
+    border:none;
 }
+
+.btn-primary:focus {
+    background-color: var(--primary-light);
+}
+
+.btn-primary:hover{
+    background-color: var(--primary-light);
+}
+
+.navbar-brand img {
+    padding-right:16px;
+}
+
+.navbar{
+    padding: 10px 0;
+}
+
+a.nav-link{
+    margin-right: 30px;
+    font-size: var(var(--text-regular));
+    font-weight: var(--font-weight-regular);
+
+}
+
+/* HERO SECTION */
+
+section.hero {
+    margin: 5rem 0;
+}
+
+.text-label,
+.text-hero-bold,
+.text-hero-regular{
+    margin: 24px 0;
+}
+
+.text-label{
+    color:var(--primary);
+    font-size: var(--text-regular);
+    font-weight: var(--font-weight-regular);
+    line-height: 31px;
+}
+
+.text-bold{
+    color: black;
+    font-size: var(--header-1);
+    font-weight: var(--font-weight-bold);
+    line-height: 74px;
+}
+
+.text-regular{
+    color: black;
+    font-size: var(--text-regular);
+    font-weight: var(--font-weight-regular);
+    line-height: 30px;
+}
+
+@media (min-width:1400px) {
+    .container{
+        width: 85%;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 25px 0;
+    }
+
+    a.nav-link{
+        margin-right: 5px 0;
+    }
+
+    section.hero{
+        margin: 2rem 0;
+        text-align: center;
+    }
+    
+    .btn{
+        display: block;
+    }
+
+    .ms-3{
+        margin-left: 0 !important;
+    }
+
+    .text-label,
+    .text-hero-bold,
+    .text-hero-regular{
+        text-align: center;
+    }
+
+    .text-bold {
+        font-size: var(--header-3);
+        line-height: 60px;
+    }
+
+}
+
+
