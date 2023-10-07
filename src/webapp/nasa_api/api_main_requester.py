@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+from flask import flash
 
 
 def get_sat_df(NORTH_LAT = 48, SOUTH_LAT = 43.5, WEST_LONG = 20, EAST_LONG = 30,
@@ -13,7 +14,7 @@ def get_sat_df(NORTH_LAT = 48, SOUTH_LAT = 43.5, WEST_LONG = 20, EAST_LONG = 30,
     try:
         response = requests.get(request_link)
     except Exception as e:
-        print(f"Something went wrong: {e}")
+        flash(f"Something went wrong: {e}")
         return pd.DataFrame()
 
     bytes_content = response.content

@@ -19,9 +19,11 @@ def create_app():
 
     from .views import views
     from .map import map
+    from .admin import admin
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(map, url_prefix='/')
+    app.register_blueprint(admin, url_prefix='/')
 
     dirpath = app.instance_path + '/uploads'
     create_database(app)
