@@ -4,29 +4,59 @@
         <meta charset = "utf-8"/>
         <meta name = "viewport" content = "width=device-width, initial-scale=1"/>
 
+        <!-- AOS CDN LINK-->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
         <!-- BOOTSTRAP CDN LINK-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
         <!-- CSS STYLESHEETS -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/> 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}"/>
+        
+        <!-- MAPTILER -->
 
-        <title>{% block title %}Home{% endblock %}</title>
+        <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.1.1/maptiler-sdk.umd.min.js"></script>
+        <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.1.1/maptiler-sdk.css" rel="stylesheet" />
+
+        <!-- MODULE SCRIPTS -->
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        
+        <link rel="icon" type="image/x-icon" href="../static/images/blazeblock.ico">
+
+        <title>{% block title %}BlazeBlock{% endblock %}</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
-        <div class="container d-flex justify-content-center fixed-top">
-            <div class="btn-group btn-group-lg" role="group">
-                <button type="button" class="btn btn-nav">
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='images/brandlogo.png') }}" alt="Logo" width="200" height="80" class="d-inline-block align-text-top">
+              </a>
+              <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('views.home_page') }}" id="map-page">HOME</a>
-                </button>
-                <button type="button" class="btn btn-nav">
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('views.map_page') }}" id="map-page">MAP</a>
-                </button>
-                <button type="button" class="btn btn-nav">
-                    <a class="nav-link" href="{{ url_for('views.report_page') }}"  id="report-page">REPORT</a>
-                </button>
+                  </li>
+                </ul>
+                <a class="nav-link btn btn-primary shadow-none" href="{{ url_for('views.report_page') }}"  id="report-page">REPORT</a>
+              </div>
             </div>
-        </nav>
+          </nav>
+
+        <div class ="container-fluid">
 
             {% block content %}
         
@@ -34,6 +64,17 @@
 
         </div>
 
+        <!-- MAP TILER SCRIPT -->
+
+        <script src="../static/javascript/maps.js"></script>
+
+        <!-- SPLINE and AOS SCRIPT-->
+        <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+        <script>
+            AOS.init();
+        </script>
 
         <!-- BOOTSTRAP CDN SCRIPT-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
