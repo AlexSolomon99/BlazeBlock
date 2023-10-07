@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, current_app, redirect, url_for, session
-from database_models import fire_data
+from .database_models import fire_data
 
 from . import db
 
