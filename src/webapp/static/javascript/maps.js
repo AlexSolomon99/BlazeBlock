@@ -1,3 +1,14 @@
+// daterange
+
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+
+
 // Initialize and add the map
 
 const position = [25,46]
@@ -11,7 +22,10 @@ zoom: 6, // starting zoom
 
 });
 
-const marker = new maptilersdk.Marker()
+const marker = new maptilersdk.Marker({
+    color: "#FF0000",
+    scale: 0.5
+})
 .setLngLat(position)
 .addTo(map);
 
