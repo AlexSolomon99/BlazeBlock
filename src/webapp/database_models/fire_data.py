@@ -40,6 +40,17 @@ class FireDataUtils():
     def __init__(self) -> None:
         pass
 
+    def return_individual_data(self, time_thr_1: str, time_thr_2: str):
+        list_of_str_times = self.get_list_of_date_strings(time_thr_1=time_thr_1, time_thr_2=time_thr_2)
+        all_requested_data = FireData.query.filter(FireData.acq_date.in_(list_of_str_times))
+
+        only_required_data = [[elem.latitude, elem.longitude, elem.confidence] for elem in all_requested_data]
+        data_dict = {}
+        for idx, elem in only_required_data:
+            data_dict[idx] = elem
+
+        return data_dict
+
     def aggregate_data_over_time(self, time_thr_1: str, time_thr_2: str):
         list_of_str_times = self.get_list_of_date_strings(time_thr_1=time_thr_1, time_thr_2=time_thr_2)
 
