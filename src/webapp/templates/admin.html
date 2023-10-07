@@ -8,7 +8,7 @@
             <button type="submit" onclick="return confirm('Are you sure you want to download all historical data?')">Add Historical Data</button> 
           </form>
 
-        {% for fire_data_obj in full_historical_data_list %}
+        <!-- {% for fire_data_obj in full_historical_data_list %}
             {% set fire_data_loop = loop %}
             <tr>
                 <td>{{fire_data_obj.id}}</td>
@@ -17,7 +17,7 @@
                 <td>{{fire_data_obj.confidence}}</td>
                 <td>{{fire_data_obj.acq_date}}</td>
             </tr>
-        {% endfor %}
+        {% endfor %} -->
     </div>
 
 <!-- JS SCRIPTS -->

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, current_app, redirect, url_for, session
 from webapp.database_models import fire_data
+import json
 
 from . import db
 
@@ -10,7 +11,12 @@ admin = Blueprint('admin', __name__)
 def admin_page():
     # full_historical_data = fire_data.FireData.query.all()
     # full_historical_data_list = [elem for elem in full_historical_data]
-    full_historical_data_list = fire_data.FireDataUtils().aggregate_data_over_time(time_thr_1="2023-10-03", time_thr_2="2023-10-04")
+    full_historical_data_list = fire_data.FireDataUtils().aggregate_data_over_time(time_thr_1="2019-10-03", time_thr_2="2023-10-04")
+
+    # the json file where the output must be stored 
+    out_file = open("myfile.json", "w") 
+    json.dump(full_historical_data_list, out_file, indent = 6) 
+    out_file.close()
 
     if request.method == 'POST':
         if request.form.get('add_historical') == 'add_historical' :

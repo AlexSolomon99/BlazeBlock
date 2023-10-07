@@ -8,8 +8,8 @@ import numpy as np
 from datetime import datetime, timedelta
 
 BASE_USER_CONFIDENCE = 0.5
-LAT_DISTANCE_DIFF = 0.01
-LONG_DISTANCE_DIFF = 0.015
+LAT_DISTANCE_DIFF = 0.05
+LONG_DISTANCE_DIFF = 0.05
 NORTH_LAT = 48
 SOUTH_LAT = 43.5
 WEST_LONG = 20
@@ -43,26 +43,34 @@ class FireDataUtils():
     def aggregate_data_over_time(self, time_thr_1: str, time_thr_2: str):
         list_of_str_times = self.get_list_of_date_strings(time_thr_1=time_thr_1, time_thr_2=time_thr_2)
 
-        # get data for te requested days
-        all_requested_data = FireData.query.filter(FireData.acq_date.in_(list_of_str_times))
-        all_requested_data = [elem for elem in all_requested_data]
-
         grid_lat = np.arange(SOUTH_LAT, NORTH_LAT, LAT_DISTANCE_DIFF)
         grid_long = np.arange(WEST_LONG, EAST_LONG, LONG_DISTANCE_DIFF)
+
+        # get data for te requested days
+        all_requested_data = FireData.query.filter(FireData.acq_date.in_(list_of_str_times))
+        only_required_data = [[elem.latitude, elem.longitude, elem.confidence] for elem in all_requested_data]
+        req_data_df = pd.DataFrame(columns=["latitude", "longitude", "confidence"], data=only_required_data)
+
+        data_dict = {}
 
         lat_idx, long_idx = 0, 0
 
         while lat_idx < len(grid_lat) - 1:
+            data_dict[lat_idx] = {}
             while long_idx < len(grid_long) - 1:
                 lat_low_bound, lat_high_bound = grid_lat[lat_idx], grid_lat[lat_idx + 1]
                 long_low_bound, long_high_bound = grid_long[long_idx], grid_long[long_idx + 1]
+
+                bounded_df = req_data_df.loc[(req_data_df["latitude"].between(lat_low_bound, lat_high_bound)) & 
+                                             (req_data_df["longitude"].between(long_low_bound, long_high_bound))]
+                data_dict[lat_idx][long_idx] = bounded_df["confidence"].sum()
 
                 long_idx += 1
             
             long_idx = 0
             lat_idx += 1
 
-        return all_requested_data
+        return data_dict
 
 
     @staticmethod
