@@ -32,10 +32,6 @@ def home_page():
 def report_page():
     return render_template("report.html")
 
-@views.route('/map', methods = ['GET', 'POST'])
-def map_page():
-    return render_template("map.html")
-
 
 @views.route ('/login', methods=['GET', 'POST'])
 def login():

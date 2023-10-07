@@ -18,8 +18,10 @@ def create_app():
     db.init_app(app)
 
     from .views import views
+    from .map import map
 
     app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(map, url_prefix='/')
 
     dirpath = app.instance_path + '/uploads'
     create_database(app)
