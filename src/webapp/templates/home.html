@@ -6,14 +6,85 @@
 {% block content %}
 
     <div class="container-fluid content">
-
-        <div class="navbar-buffer">
-            <div class="btn-group btn-group-lg" role="group">
-                <button type="button" class="btn btn-nav">Buffer</button>
+        <section class="hero">
+            <div class="container" data-aos="fade-up" data-aos-duration="1000">
+                <div class="row">
+                    <div class="col-md-6" >
+                        <div class="text-display">
+                            <div class="text-label">
+                                Don't let fire become an issue
+                            </div>
+                            <div class="text-bold">
+                                BlazeBlock lorem ipsum dolor sit amet
+                            </div>
+                            <div class="text-regular">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur iure labore temporibus in atque
+                            </div>
+                            <br>
+                            <br>
+                            <div class="cta">
+                                <a class="btn btn-primary" href="{{ url_for('views.report_page') }}"  id="report-page">REPORT</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <spline-viewer url="https://prod.spline.design/rChu1QnZ0aCn3VWy/scene.splinecode"></spline-viewer>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
         
-        <p>HOME PAGE CONTENT</p>
+        <section class="purpose">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mt-5 mb-5">
+                        <div class="text-bold">
+                            INSIGHTS
+                        </div>
+                        <div class="text-label">
+                            Helpful data
+                        </div>
+                        <div class="text-regular">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur iure labore temporibus in atque
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur iure labore temporibus in atque
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur iure labore temporibus in atque
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-5 mb-5">
+                        <span>
+                            <i class="bi bi-search"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-5 mb-5">
+                        <span>
+                            <i class="bi bi-flag"></i>
+                        </span>
+                    </div>
+                    <div class="col-md-12 mt-5 mb-5">
+                        <div class="text-bold">
+                            REPORTS
+                        </div>
+                        <div class="text-label">
+                            Help your community
+                        </div>
+                        <div class="text-regular">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur iure labore temporibus in atque
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur iure labore temporibus in atque
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur iure labore temporibus in atque
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-5 mb-5 text-center">
+                        <div class="text-regular">
+                            WEBAPP DEVELOPED FOR NASA SPACE APPS CHALLENGE
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
 <!-- JS SCRIPTS -->
