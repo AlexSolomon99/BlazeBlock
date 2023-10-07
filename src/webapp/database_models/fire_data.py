@@ -1,5 +1,6 @@
 from . import db
 from nasa_api.api_main_requester import get_sat_df
+from nasa_api import additional_functions_api
 from flask_login import UserMixin
 from flask import flash
 import pandas as pd
@@ -31,7 +32,7 @@ class FireDataUtils():
         pass
 
 
-    def import_df_to_db(df_to_import):
+    def import_df_to_db(self, df_to_import):
         list_of_added_ids = []
         for _, row in df_to_import.iterrows():
             try:
@@ -64,5 +65,25 @@ class FireDataUtils():
         return list_of_added_ids
     
 
-    def download_historical_data():
-        downloaded_df = get_sat_df()
+    def download_historical_data(self, num_years_past=5.0):
+        init_date = datetime.now()
+
+        current_analysis_date = init_date - timedelta(days=int(365*num_years_past))
+        diff_date = init_date - current_analysis_date
+
+        master_df_list = []
+
+        while diff_date > timedelta(seconds=0):
+            current_analysis_date_str = additional_functions_api.convert_datetime_to_day_string(current_analysis_date)
+
+            downloaded_df = get_sat_df(DAYS_RANGE=10, DATE_STR=current_analysis_date_str)
+            master_df_list.append(downloaded_df)
+
+            current_analysis_date = current_analysis_date + timedelta(days=10)
+            diff_date = init_date - current_analysis_date
+
+        concatenated_master_df = pd.concat(master_df_list)
+        list_of_added_ids = self.import_df_to_db(df_to_import=concatenated_master_df)
+
+        return list_of_added_ids
+
