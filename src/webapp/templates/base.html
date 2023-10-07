@@ -14,7 +14,15 @@
         <!-- CSS STYLESHEETS -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}"/> 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}"/>
+        
+        <!-- MAPTILER -->
+
+        <script src="https://cdn.maptiler.com/maptiler-sdk-js/v1.1.1/maptiler-sdk.umd.min.js"></script>
+        <link href="https://cdn.maptiler.com/maptiler-sdk-js/v1.1.1/maptiler-sdk.css" rel="stylesheet" />
+
+        <!-- MODULE SCRIPTS -->
+        
 
         <title>{% block title %}Home{% endblock %}</title>
     </head>
@@ -50,6 +58,9 @@
 
         </div>
 
+        <!-- MAP TILER SCRIPT -->
+
+        <script src="../static/javascript/maps.js"></script>
 
         <!-- SPLINE and AOS SCRIPT-->
         <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
