@@ -14,32 +14,26 @@
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body class="d-flex flex-column min-vh-100">
-
-        <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Navbar</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('views.home_page') }}" id="map-page">HOME</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('views.map_page') }}" id="map-page">MAP</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('views.report_page') }}"  id="report-page">REPORT</a>
-                    </li>
-                </ul>
-              </div>
+        <div class="container d-flex justify-content-center fixed-top">
+            <div class="btn-group btn-group-lg" role="group">
+                <button type="button" class="btn btn-nav">
+                    <a class="nav-link" href="{{ url_for('views.home_page') }}" id="map-page">HOME</a>
+                </button>
+                <button type="button" class="btn btn-nav">
+                    <a class="nav-link" href="{{ url_for('views.map_page') }}" id="map-page">MAP</a>
+                </button>
+                <button type="button" class="btn btn-nav">
+                    <a class="nav-link" href="{{ url_for('views.report_page') }}"  id="report-page">REPORT</a>
+                </button>
             </div>
+        </div>
 
-        <div class ="container-fluid content">
+        <div class ="container-fluid d-flex base-container flex-grow-1">
+
             {% block content %}
-            
+
             {% endblock %}
+
         </div>
 
 
