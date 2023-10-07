@@ -47,7 +47,11 @@ class FireDataUtils():
         only_required_data = [[elem.latitude, elem.longitude, elem.confidence] for elem in all_requested_data]
         data_dict = {}
         for idx, elem in only_required_data:
-            data_dict[idx] = elem
+            data_dict[idx] = {
+                "latitude": elem.latitude,
+                "longitude": elem.longitude,
+                "confidence": elem.confidence
+            }
 
         return data_dict
 
