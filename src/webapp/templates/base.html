@@ -9,7 +9,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
         <!-- CSS STYLESHEETS -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/> 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}"/> 
 
         <title>{% block title %}Home{% endblock %}</title>
     </head>
@@ -26,10 +28,12 @@
                     <a class="nav-link" href="{{ url_for('views.report_page') }}"  id="report-page">REPORT</a>
                 </button>
             </div>
-        </nav>
+        </div>
+
+        <div class ="container-fluid d-flex base-container flex-grow-1">
 
             {% block content %}
-        
+
             {% endblock %}
 
         </div>
@@ -37,5 +41,5 @@
 
         <!-- BOOTSTRAP CDN SCRIPT-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </body>
+    </body>
 </html>
