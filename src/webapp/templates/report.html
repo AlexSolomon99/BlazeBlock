@@ -3,12 +3,20 @@
 {% block title %} Report {% endblock %}
 
 {% block content %}
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgGM3ingXNZuxtpmpoeYOTaOGz7XssqPs&callback=initMap" async defer></script> -->
 
-<div class="container-fluid content">
+<!-- <div class="container-fluid content">
         <br>
         <br>
         <br>
         <h3 class="text-center">Wildfire?</h3>
+        <style>
+          /* Adjust the map container's size */
+          #map {
+              height: 400px;
+              width: 100%;
+          }
+      </style>
 
 
         <body>
@@ -52,18 +60,347 @@
                     <option value="4">>10 km</option>
                   </select>
                 </div>
+                <div class="mb-3">
+                  <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        Map Container -->
+        <!-- <div id="map"></div> -->
+
+        <!-- Hidden input fields to store latitude and longitude -->
+        <!-- <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+
+        <br><br>
+
+                </div>
                 
                 
                 <div class="mb-3">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
+
+                
     
                 
               </form>
            
-</div>
+</div> --> 
+    <!-- Include the Google Maps API with your API key -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgGM3ingXNZuxtpmpoeYOTaOGz7XssqPs&callback=initMap" async defer></script>
+    
+    <style>
+        /* Adjust the map container's size */
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+
+<body>
+    <div class="container-fluid content">
+        <br>
+        <br>
+        <br>
+        <h3 class="text-center">Wildfire?</h3>
+
+        <form id="locationForm">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="text" class="form-control" id="exampleInputPassword1">
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              </div>
+              <div class="mb-3">
+              <select class="form-select" aria-label="Default select example">
+                  <option selected>Type</option>
+                  <option value="1">Forest</option>
+                  <option value="2">Grass</option>
+                  <option value="3">Urban</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Source</option>
+                  <option value="1">Lightning</option>
+                  <option value="2">Arson</option>
+                  <option value="3">Unknown</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Radius</option>
+                  <option value="1">0-2 km</option>
+                  <option value="2">2-5 km</option>
+                  <option value="3">5-10 km</option>
+                  <option value="4">>10 km</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" required><br><br>
+            <div class="mb-3">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <Other form fields -->
+
+            <!-- Map Container -->
+            <!-- <div id="map"></div> -->
+
+            <!-- Hidden input fields to store latitude and longitude -->
+            <!-- <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+<script>
+  var map;
+    var marker;
+
+    function initMap() {
+        var mapOptions = {
+            center: { lat: 0, lng: 0 }, // Set initial coordinates
+            zoom: 8, // Set initial zoom level
+        };
+
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+        });
+
+        // Event listener for when the marker is dragged
+        google.maps.event.addListener(marker, 'dragend', function(event) {
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+        });
+
+        // Event listener for when the map is clicked to move the marker
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng);
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+        });
+    }
+
+    // Handle form submission
+    document.getElementById('locationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); -->
+
+        <!-- // Gather form data including latitude and longitude
+        var formData = new FormData(this);
+
+        // Add "Name" and "Password" fields to the form data
+        //var name = document.getElementById('name').value;
+        //var password = document.getElementById('password').value;
+        //formData.append('name', name);
+        //formData.append('password', password);
+
+        // Perform any further processing or data submission here
+        // For example, you can use JavaScript or send the data to a server via AJAX -->
+        <!-- console.log('Form Data:', formData); -->
+    <!-- });
+</script> -->
+<!-- </body>   -->
+
 
 
 <!-- JS SCRIPTS -->
+
+
+<!-- <script src="../static/css/app.js"></script> -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Form with Google Map</title>
+
+    <!-- Include the Google Maps API with your API key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgGM3ingXNZuxtpmpoeYOTaOGz7XssqPs&callback=initMap" async defer></script>
+    
+    <style>
+        /* Adjust the map container's size */
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid content">
+        <br>
+        <br>
+        <br>
+        <h3 class="text-center">Wildfire?</h3>
+
+        <form id="locationForm">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="text" class="form-control" id="exampleInputPassword1">
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              </div>
+              <div class="mb-3">
+              <select class="form-select" aria-label="Default select example">
+                  <option selected>Type</option>
+                  <option value="1">Forest</option>
+                  <option value="2">Grass</option>
+                  <option value="3">Urban</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Source</option>
+                  <option value="1">Lightning</option>
+                  <option value="2">Arson</option>
+                  <option value="3">Unknown</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Radius</option>
+                  <option value="1">0-2 km</option>
+                  <option value="2">2-5 km</option>
+                  <option value="3">5-10 km</option>
+                  <option value="4">>10 km</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" required><br><br>
+            
+
+            
+
+            <!-- Other form fields -->
+
+            <!-- Map Container -->
+            <div id="map"></div>
+
+            <!-- Hidden input fields to store latitude and longitude -->
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+            <div class="mt-3">
+              <button id="geolocationButton" class="btn btn-primary">Get My Location</button>
+            </div>
+            <div class="mt-3">
+
+              <button type="submit" class="btn btn-primary mb-3">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript for initializing the map and handling form submission -->
+    
+<script>
+    var map;
+    var marker;
+
+    function initMap() {
+        var mapOptions = {
+            center: { lat: 44.5, lng: 26 }, // Set initial coordinates
+            zoom: 8, // Set initial zoom level
+        };
+
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+        });
+
+        // Event listener for when the marker is dragged
+        google.maps.event.addListener(marker, 'dragend', function(event) {
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+        });
+
+        // Event listener for when the map is clicked to move the marker
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker.setPosition(event.latLng);
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+        });
+    }
+
+    // Handle form submission
+    document.getElementById('locationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Gather form data including latitude and longitude
+        var formData = new FormData(this);
+
+        // Add "Name" and "Password" fields to the form data
+        //var name = document.getElementById('name').value;
+        //var password = document.getElementById('password').value;
+        //formData.append('name', name);
+        //formData.append('password', password);
+
+        // Perform any further processing or data submission here
+        // For example, you can use JavaScript or send the data to a server via AJAX
+        console.log('Form Data:', formData);
+    });
+
+    // Handle geolocation button click
+    document.getElementById('geolocationButton').addEventListener('click', function() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              var userLatLng = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+              };
+
+              // Set map center and marker position to user's location
+              map.setCenter(userLatLng);
+              marker.setPosition(userLatLng);
+
+              // Update hidden input fields with user's location
+              document.getElementById('latitude').value = userLatLng.lat;
+              document.getElementById('longitude').value = userLatLng.lng;
+          }, function(error) {
+              console.error('Error getting geolocation:', error);
+          });
+      } else {
+          alert('Geolocation is not supported by your browser.');
+      }
+  });
+</script>
+
+</body>
+
+
+
 
 {% endblock %}

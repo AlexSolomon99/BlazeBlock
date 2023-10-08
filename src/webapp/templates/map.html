@@ -1,27 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form>
+    <form id="dateRangeForm" method = "POST">
         <div class="row">
             <div class="col-md-auto">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown button
-                    </button>
-                    <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Active Fires</a></li>
-                    <li><a class="dropdown-item" href="#">Fire Risk</a></li>
-                    </ul>
-                </div>
+                <select class="dropdown btn btn-primary" name="select-map">
+                    <option class="dropdown-item" value="1">Active Fires</option>
+                    <option class="dropdown-item" value="2">Fire Risk</option>
+                  </select>
             </div>
             <div class="col-md-auto mt-2">
                 <div class="input-group mb-3">
                 <form>
                     <span class="input-group-text" id="basic-addon1">Date:</span>
-                    <input type="text" name="daterange" class="form-control" aria-describedby="basic-addon1">
-                    <button type="submit" onclick="return confirm('Are you sure you want to perform this action?')">Remove</button>
+                    <input type="text" name="date-range" class="form-control" aria-describedby="basic-addon1">
                   </div>
                 </form>
+            </div>
+            <div class="col-md-auto mt-2">
+                <button type="submit" class="btn btn-primary mb-3">Submit</button>
             </div>
         </div>
     </form>
