@@ -98,9 +98,14 @@ section.hero {
     line-height: 30px;
 }
 
+.hero-img{
+    width: 500px;
+    height: 500px;
+}
+
 @media (min-width:1400px) {
     .container{
-        width: 85%;
+        width: 95%;
     }
 
 }
@@ -115,6 +120,19 @@ section.hero {
     }
 
     section.hero{
+        margin: 2rem 0;
+        text-align: center;
+    }
+
+    .spline-element{
+        display: none;
+    }
+
+    .hero-img{
+        display: none;
+    }
+
+    section.purpose{
         margin: 2rem 0;
         text-align: center;
     }
