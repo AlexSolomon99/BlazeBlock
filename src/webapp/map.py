@@ -36,6 +36,7 @@ def map_page():
                 requested_data_dict = fire_data.FireDataUtils().aggregate_data_over_time(time_thr_1=f"{date_1[2]}-{date_1[0]}-{date_1[1]}", 
                                                                                         time_thr_2=f"{date_2[2]}-{date_2[0]}-{date_2[1]}")
         if request.form.get('redirect_uas') == 'redirect_uas':
+            fire_data.send_email("alexandru.solomon@euroavia-bucuresti.ro", (42.22, 23.6))
             return redirect(url_for("alert.alert_page"))
 
     return render_template("map.html", requested_data_dict=json.dumps(requested_data_dict))

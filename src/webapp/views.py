@@ -38,6 +38,8 @@ def report_page():
         report_addition_id = fire_data.FireDataUtils().add_db_entry_from_report(latitude=latitude,
                                                                                 longitude=longitude)
         
+        
+        
         return redirect(url_for('views.home_page'))
 
     return render_template("report.html")
