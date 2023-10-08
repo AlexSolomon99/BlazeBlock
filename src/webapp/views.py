@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, current_app, redirect, url_for, session
+from webapp.database_models import fire_data
 
 from . import db
 
@@ -30,6 +31,17 @@ def home_page():
 
 @views.route('/report', methods = ['GET', 'POST'])
 def report_page():
+    if request.method == 'POST':
+        latitude = request.form.get('latitude')
+        longitude = request.form.get('longitude')
+
+        print(latitude)
+
+        report_addition_id = fire_data.FireDataUtils().add_db_entry_from_report(latitude=latitude,
+                                                                                longitude=longitude)
+        
+        return redirect(url_for('views.home_page'))
+
     return render_template("report.html")
 
 
