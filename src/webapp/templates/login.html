@@ -5,7 +5,40 @@
 {% block content %}
 
     <div class="container-fluid logincontent">
-        
+        <div class="row">
+            <div class="col-lg align-self-center">
+                <div class="card login">
+                    <form class="needs-validation" method = "POST">
+                        <h1 class="text-center"><span class="underline">LOGIN</span></h1>
+                        <div class="form-group was-validated">
+                            <label class="form-label" for="email">Email Adress</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required/>
+                            <div class="invalid-feedback">
+                                Enter e-mail
+                            </div>
+                        </div>
+                        
+                        <div class="form-group was-validated">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required/>
+                            <div class="invalid-feedback">
+                                Enter Password
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 submitbtn">Autentificare</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg align-self-center">
+                <div class="card description">
+                    <h1 class="text-center"><span class="underline">Blaze Block</span></h1>
+                    <h2>About Blaze Block</h2>
+                    <p>Blaze Block is an application destined to increase the public awareness of the public regarding fires.</p>
+                    <h2>How to Connect</h2>
+                    <p>If you do not have an institutional account, please contact us here: .</p>
+                </div>
+            </div>
+        </div>
     </div>
 
 <!-- JS SCRIPTS -->

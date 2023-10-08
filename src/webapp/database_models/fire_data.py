@@ -135,7 +135,7 @@ class FireDataUtils():
 
         return list_of_added_ids
     
-    def add_db_entry_from_report(self, latitude, longitude, area):
+    def add_db_entry_from_report(self, latitude, longitude, area=2):
         now = datetime.now()
         now_time_str = additional_functions_api.convert_datetime_to_day_string(now)
 
