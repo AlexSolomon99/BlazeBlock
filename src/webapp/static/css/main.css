@@ -9,7 +9,7 @@
     --header-1: 64px;
     --header-2: 48px;
     --header-3: 42px;
-    --header-4: 32px;
+    --header-4: 30px;
 
     --text-medium: 18px;
     --text-regular: 16px;
@@ -73,7 +73,8 @@ section.hero {
 
 .text-label,
 .text-hero-bold,
-.text-hero-regular{
+.text-hero-regular,
+.text-semi-bold{
     margin: 24px 0;
 }
 
@@ -98,9 +99,28 @@ section.hero {
     line-height: 30px;
 }
 
+.text-semi-bold{
+    color: black;
+    font-size: var(--header-4);
+    font-weight: var(--font-weight-semi-bold);
+    line-height: 30px;
+}
+
 .hero-img{
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 270px;
+}
+
+ul.bullet-point-list {
+    list-style: none;
+}
+
+ul.bullet-point-list li::before{
+  content: "•";
+  color: red;
+  font-weight: bold;
+  display: inline-block;
+  width: 15px;
 }
 
 @media (min-width:1400px) {
