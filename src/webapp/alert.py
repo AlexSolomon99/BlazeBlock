@@ -7,4 +7,7 @@ alert = Blueprint('alert', __name__)
 
 @alert.route ('/alert', methods=['GET', 'POST'])
 def alert_page():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        lat_long_data = request.form.get('addresses')
     return render_template("alert.html")

@@ -47,6 +47,7 @@ def map_page():
             return render_template("map.html",selected_map = json.dumps(selected_map), requested_data_dict=geojson.dumps(requested_data_dict, sort_keys = True))
             
         if request.form.get('redirect_uas') == 'redirect_uas':
+            fire_data.send_email("alexandru.solomon@euroavia-bucuresti.ro", (42.22, 23.6))
             return redirect(url_for("alert.alert_page"))
 
     return render_template("map.html",selected_map = json.dumps(selected_map), requested_data_dict=json.dumps(requested_data_dict), date_1=date_1_f, date_2=date_2_f)

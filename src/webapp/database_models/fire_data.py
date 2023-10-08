@@ -6,6 +6,7 @@ from flask import flash
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
+import smtplib, ssl
 
 BASE_USER_CONFIDENCE = 0.3
 LAT_DISTANCE_DIFF = 0.1
@@ -33,6 +34,48 @@ class FireData(db.Model, UserMixin):
     bright_t31 = db.Column(db.Float)
     frp = db.Column(db.Float)
     daynight = db.Column(db.String(10))
+
+class Credential(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(50))
+    email = db.Column(db.String(150), unique=True)
+    user = db.relationship('User', uselist=False, backref='credential')
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    credential_id = db.Column(db.Integer, db.ForeignKey('credential.id'))
+    child_user = db.relationship('Credential', back_populates='user')
+    addresses_of_interest = db.relationship("AddressOfInterest", uselist=True, back_populates = "chil_addresses_of_interest")
+
+
+class AddressOfInterest(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    chil_addresses_of_interest = db.relationship('User', back_populates='addresses_of_interest')
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+
+
+def send_email(mail_receiver, address_of_interest):
+    port = 465  # For SSL
+    smtp_server = "smtp.gmail.com"
+    sender_email = "inscrieri@euroavia-bucuresti.ro"
+    password = "EuroaviaEA21"
+    message = f"""\
+    Subject: Blaze Block Alert
+
+    Hi ,
+
+    This message is sent from the Blaze Block Community. There seems to be a fire near one of your interest addresses - {address_of_interest[0]} LAT N, {address_of_interest[1]} LONG E. 
+    Be sure to take all the precautions needed. 
+
+    Stay safe!
+    """
+
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, mail_receiver, message)
 
 
 class FireDataUtils():

@@ -4,48 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Alert System</title>
+    <title>Multiple Google Maps Addresses (No Page Refresh)</title>
 
     <!-- Include the Google Maps API with your API key -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgGM3ingXNZuxtpmpoeYOTaOGz7XssqPs&callback=initMap" async defer></script>
-    
+
     <style>
         /* Adjust the map container's size */
         #map {
-            height: 600px;
+            height: 400px;
             width: 100%;
         }
     </style>
-    <body>
+</head>
+<body>
+    <div class="container-fluid content">
+        <br>
+        <br>
+        <br>
+        <h3 class="text-center">Multiple Google Maps Addresses (No Page Refresh)</h3>
 
-        <div class="container-fluid content">
-            <br>
-            <br>
-            <br>
-            <h3 class="text-center">Multiple Google Maps Addresses (No Page Refresh)</h3>
+        <form id="addressForm", method="POST">
+            <div class="mb-3">
+                <label for="addresses">Enter Multiple Addresses (one per line):</label>
+                <textarea id="addresses" name="addresses" rows="4" required></textarea>
+            </div>
 
-           
+            <div class="mb-3">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-            <form id="addressForm">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  </div>
+            <!-- Map Container -->
+            <div id="map"></div>
 
-                
+            <button type="button" id="addMarkersButton">Add Markers</button>
+            <button type="submit" id="getLatLngButton">Get Latitudes and Longitudes</button>
+        </form>
+    </div>
 
-                <!-- Map Container -->
-                <div id="map"></div>
-
-                <button type="button" id="addMarkersButton" class="btn btn-primary">Add Markers</button>
-                <button type="button" id="getLatLngButton" class="btn btn-primary">Get Latitudes and Longitudes</button>
-            </form>
-        </div>
-            <!-- JavaScript for initializing the map and handling form submission -->
+    <!-- JavaScript for initializing the map and handling form submission -->
     <script>
         var map;
         var geocoder;
@@ -56,7 +54,7 @@
 
         function initMap() {
             var mapOptions = {
-                center: { lat: 44.5, lng: 26 }, // Set initial coordinates
+                center: { lat: 0, lng: 0 }, // Set initial coordinates
                 zoom: 8, // Set initial zoom level
             };
 
@@ -120,6 +118,6 @@
             console.log('Emails:', emailData);
         });
     </script>
-    </body>
+</body>
 
 {% endblock %}
