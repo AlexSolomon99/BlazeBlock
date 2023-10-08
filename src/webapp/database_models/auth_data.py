@@ -1,5 +1,6 @@
-from . import db
+from webapp import db
 from flask_login import UserMixin
+from user_data import User
 
 
 class Credential(db.Model, UserMixin):
