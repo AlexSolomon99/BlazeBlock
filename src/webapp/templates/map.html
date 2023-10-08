@@ -31,40 +31,137 @@
     <div id="map"></div>
 
     <script>
+
+        $(function() {
+            $('input[name="date-range"]').daterangepicker({
+              opens: 'left',
+              startDate: moment().subtract(1, 'days') ,
+              endDate: moment() 
+            }, function(start, end, label) {
+              console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            });
+          });
         
-        const position = [25,46]
+        const position = [25,46];
 
         maptilersdk.config.apiKey = 'aq7LeCSjPMw8qSBWn3U9';
+
         const map = new maptilersdk.Map({
         container: 'map', // container's id or the HTML element to render the map
         style: "2120e825-c27b-4424-bbc8-b0b1d3afeceb",
         center: position, // starting position [lng, lat]
         zoom: 6, // starting zoom
-
         });
 
-        var marker_data = {{ requested_data_dict | safe }};
+        var marker_data = {{ requested_data_dict | safe }} ;
 
+        var current_map = {{ selected_map | safe }} ;
 
-        console.log(marker_data);
+        if (current_map == 1){
+            for (var idx in marker_data) {
+                if (marker_data.hasOwnProperty(idx)) {
+                    var elem = marker_data[idx];
+                    var marker_position = [elem.longitude,elem.latitude];
+                    var color_value = "#FFFFFF"
+                    if(elem.confidence > 50) {
+                        color_value = "#FF0000"
+                    }
+                    else {
+                        color_value = "#808080"
+                    }
+                    const marker = new maptilersdk.Marker({
+                      color: color_value,
+                      scale: 0.5
+                  })
+                  .setLngLat(marker_position)
+                  .addTo(map);
+                }
+              }
+        }
 
-        for (var idx in marker_data) {
-            if (marker_data.hasOwnProperty(idx)) {
-                var elem = marker_data[idx];
-                var marker_position = [elem.longitude,elem.latitude];
-                console.log(marker_position);
-                const marker = new maptilersdk.Marker({
-                  color: "#FF0000",
-                  scale: 0.5
-              })
-              .setLngLat(marker_position)
-              .addTo(map);
-            }
-          }
-        
-        
-        
+        if (current_map == 2){
 
+            map.on('load', function() {
+                var geojson_data = {{ requested_data_dict | safe }};
+
+                console.log(geojson_data);
+                
+                map.addSource('heatmap_source', {
+                    type: 'geojson',
+                    data: geojson_data
+                });
+
+                map.addLayer({
+                    id: 'fire_heatmap',
+                    type: 'heatmap',
+                    source: 'heatmap_source',
+                    maxzoom: 14,
+
+                    paint: {
+            
+                      'heatmap-weight': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'confidence'],
+                        0,
+                        0,
+                        400,
+                        1
+                      ],
+
+                      'heatmap-intensity': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        0,
+                        1,
+                        12,
+                        3
+                        ],
+    
+                      'heatmap-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['heatmap-density'],
+                        0, "rgba(68, 1, 84, 0)",
+                        0.01, "rgba(68, 1, 84, 0.2)",
+                        0.13, "rgba(71, 44, 122, 1)",
+                        0.25, "rgba(59, 81, 139, 1)",
+                        0.38, "rgba(44, 113, 142, 1)",
+                        0.5, "rgba(33, 144, 141, 1)",
+                        0.63, "rgba(39, 173, 129, 1)",
+                        0.75, "rgba(92, 200, 99, 1)",
+                        0.88, "rgba(170, 220, 50, 1)",
+                        1, "rgba(253, 231, 37, 1)",
+                      ],
+
+                      'heatmap-radius': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        0,
+                        2,
+                        9,
+                        20
+                        ],
+
+                        'heatmap-opacity': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        7,
+                        1,
+                        18,
+                        0
+                    ]
+            
+                      // Transition from heatmap to circle layer by zoom level
+                    }
+                  });
+
+            });
+
+        }
     </script>
 
 <!-- JS SCRIPTS -->
