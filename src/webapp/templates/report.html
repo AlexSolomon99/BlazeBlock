@@ -253,23 +253,11 @@
         <br>
         <br>
         <br>
-        <h3 class="text-center">Wildfire?</h3>
-
-        <form id="locationForm">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="text" class="form-control" id="exampleInputPassword1">
-              </div>
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-              </div>
-              <div class="mb-3">
+        <h3 class="text-center">Report a wildfire.</h3>
+        <p class="text-center">Type or pin on the map your address</p>
+            
+              
+              <!-- <div class="mb-3">
               <select class="form-select" aria-label="Default select example">
                   <option selected>Type</option>
                   <option value="1">Forest</option>
@@ -296,14 +284,22 @@
               </div>
               <div class="mb-3">
                 <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required><br><br>
+      <input type="text" id="name" name="name" required><br><br> -->
+      <div class="input-append">
+        
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" >
+        
 
-      <label for="address">Address:</label>
-      <input type="text" id="address" name="address" required><br><br>
+          
+          <button id="geocodeButton" class="btn btn-primary">Search</button>
+          <button id="geolocationButton" class="btn btn-primary">Get My Location</button>
+      </div>    
+      <br>
+      
+
             
-
-            
-
+      <form id="locationForm" method = "POST">
             <!-- Other form fields -->
 
             <!-- Map Container -->
@@ -312,11 +308,10 @@
             <!-- Hidden input fields to store latitude and longitude -->
             <input type="hidden" id="latitude" name="latitude">
             <input type="hidden" id="longitude" name="longitude">
+            
+              
+            
             <div class="mt-3">
-              <button id="geolocationButton" class="btn btn-primary">Get My Location</button>
-            </div>
-            <div class="mt-3">
-
               <button type="submit" class="btn btn-primary mb-3">Submit</button>
             </div>
         </form>
@@ -356,22 +351,22 @@
     }
 
     // Handle form submission
-    document.getElementById('locationForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    // document.getElementById('locationForm').addEventListener('submit', function(event) {
+    //     event.preventDefault();
 
-        // Gather form data including latitude and longitude
-        var formData = new FormData(this);
+    //     // Gather form data including latitude and longitude
+    //     var formData = new FormData(this);
 
-        // Add "Name" and "Password" fields to the form data
-        //var name = document.getElementById('name').value;
-        //var password = document.getElementById('password').value;
-        //formData.append('name', name);
-        //formData.append('password', password);
+    //     // Add "Name" and "Password" fields to the form data
+    //     //var name = document.getElementById('name').value;
+    //     //var password = document.getElementById('password').value;
+    //     //formData.append('name', name);
+    //     //formData.append('password', password);
 
-        // Perform any further processing or data submission here
-        // For example, you can use JavaScript or send the data to a server via AJAX
-        console.log('Form Data:', formData);
-    });
+    //     // Perform any further processing or data submission here
+    //     // For example, you can use JavaScript or send the data to a server via AJAX
+    //     console.log('Form Data:', formData);
+    // });
 
     // Handle geolocation button click
     document.getElementById('geolocationButton').addEventListener('click', function() {
@@ -396,6 +391,32 @@
           alert('Geolocation is not supported by your browser.');
       }
   });
+  // Handle geocode button click
+  document.getElementById('geocodeButton').addEventListener('click', function() {
+    var address = document.getElementById('address').value;
+
+    // Use the Geocoding API to convert the address to coordinates
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': address }, function(results, status) {
+        if (status === 'OK' && results[0]) {
+            var location = results[0].geometry.location;
+            var userLatLng = {
+                lat: location.lat(),
+                lng: location.lng()
+            };
+
+            // Set map center and marker position to the geocoded location
+            map.setCenter(userLatLng);
+            marker.setPosition(userLatLng);
+
+            // Update hidden input fields with geocoded coordinates
+            document.getElementById('latitude').value = userLatLng.lat;
+            document.getElementById('longitude').value = userLatLng.lng;
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+});
 </script>
 
 </body>
