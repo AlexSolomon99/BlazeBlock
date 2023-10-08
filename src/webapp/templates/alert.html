@@ -1,5 +1,125 @@
 {% extends "base.html" %}
 
 {% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Alert System</title>
+
+    <!-- Include the Google Maps API with your API key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgGM3ingXNZuxtpmpoeYOTaOGz7XssqPs&callback=initMap" async defer></script>
+    
+    <style>
+        /* Adjust the map container's size */
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+    <body>
+
+        <div class="container-fluid content">
+            <br>
+            <br>
+            <br>
+            <h3 class="text-center">Multiple Google Maps Addresses (No Page Refresh)</h3>
+
+           
+
+            <form id="addressForm">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  </div>
+
+                
+
+                <!-- Map Container -->
+                <div id="map"></div>
+
+                <button type="button" id="addMarkersButton" class="btn btn-primary">Add Markers</button>
+                <button type="button" id="getLatLngButton" class="btn btn-primary">Get Latitudes and Longitudes</button>
+            </form>
+        </div>
+            <!-- JavaScript for initializing the map and handling form submission -->
+    <script>
+        var map;
+        var geocoder;
+        var markers = [];
+        var latitudeData = [];
+        var longitudeData = [];
+        var emailData = [];
+
+        function initMap() {
+            var mapOptions = {
+                center: { lat: 44.5, lng: 26 }, // Set initial coordinates
+                zoom: 8, // Set initial zoom level
+            };
+
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            geocoder = new google.maps.Geocoder();
+        }
+
+        // Function to add markers to the map and collect latitude, longitude, and email data
+        function addMarkers(addresses, email) {
+            clearMarkers();
+
+            addresses.forEach(function (address) {
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status === 'OK' && results[0]) {
+                        var location = results[0].geometry.location;
+
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: location,
+                        });
+
+                        markers.push(marker);
+
+                        // Store latitude and longitude data
+                        latitudeData.push(location.lat());
+                        longitudeData.push(location.lng());
+
+                        // Store email data
+                        emailData.push(email);
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            });
+        }
+
+        // Function to clear all markers from the map
+        function clearMarkers() {
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+        }
+
+        // Handle button click to add markers
+        document.getElementById('addMarkersButton').addEventListener('click', function () {
+            var addressesTextarea = document.getElementById('addresses');
+            var emailInput = document.getElementById('email');
+
+            var addresses = addressesTextarea.value.trim().split('\n');
+            var email = emailInput.value.trim();
+
+            addMarkers(addresses, email);
+        });
+
+        // Handle button click to get latitude, longitude, and email data
+        document.getElementById('getLatLngButton').addEventListener('click', function () {
+            // Access latitudeData, longitudeData, and emailData arrays to use the data as needed
+            console.log('Latitudes:', latitudeData);
+            console.log('Longitudes:', longitudeData);
+            console.log('Emails:', emailData);
+        });
+    </script>
+    </body>
 
 {% endblock %}
