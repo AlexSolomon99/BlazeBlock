@@ -35,8 +35,6 @@ def report_page():
         latitude = request.form.get('latitude')
         longitude = request.form.get('longitude')
 
-        print(latitude)
-
         report_addition_id = fire_data.FireDataUtils().add_db_entry_from_report(latitude=latitude,
                                                                                 longitude=longitude)
         
