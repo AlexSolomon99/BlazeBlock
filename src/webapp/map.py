@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, current_app, redirect, url_for, session, jsonify
+from datetime import datetime, timedelta
 from .database_models import fire_data
 from . import db
 import json
@@ -8,7 +9,17 @@ map = Blueprint('map', __name__)
 
 @map.route('/map', methods = ['GET', 'POST'])
 def map_page():
+
+    current_date = datetime.now()
+    yesterday_date = current_date - timedelta(days=1)
+    yesterday_str = yesterday_date.strftime(r"%Y-%m-%d")
+    date_str = current_date.strftime(r"%Y-%m-%d")
+
+    requested_data_dict = fire_data.FireDataUtils().return_individual_data(time_thr_1=yesterday_str, 
+                                                                            time_thr_2=date_str)
+
     if request.method == 'POST':
+
         date_range = request.form.get('date-range')
         selected_map = request.form.get('select-map')
 

@@ -44,9 +44,9 @@ class FireDataUtils():
         list_of_str_times = self.get_list_of_date_strings(time_thr_1=time_thr_1, time_thr_2=time_thr_2)
         all_requested_data = FireData.query.filter(FireData.acq_date.in_(list_of_str_times))
 
-        only_required_data = [[elem.latitude, elem.longitude, elem.confidence] for elem in all_requested_data]
+        only_required_data = [elem for elem in all_requested_data]
         data_dict = {}
-        for idx, elem in only_required_data:
+        for idx, elem in enumerate(only_required_data):
             data_dict[idx] = {
                 "latitude": elem.latitude,
                 "longitude": elem.longitude,
