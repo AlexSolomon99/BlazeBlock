@@ -23,6 +23,40 @@
     
     <div id="map"></div>
 
+    <script>
+        
+        const position = [25,46]
+
+        maptilersdk.config.apiKey = 'aq7LeCSjPMw8qSBWn3U9';
+        const map = new maptilersdk.Map({
+        container: 'map', // container's id or the HTML element to render the map
+        style: "2120e825-c27b-4424-bbc8-b0b1d3afeceb",
+        center: position, // starting position [lng, lat]
+        zoom: 6, // starting zoom
+
+        });
+
+        var marker_data = {{ requested_data_dict | safe }};
+
+
+        console.log(marker_data);
+
+        for (var idx in marker_data) {
+            if (marker_data.hasOwnProperty(idx)) {
+                var elem = marker_data[idx];
+                var marker_position = [elem.longitude,elem.latitude];
+                console.log(marker_position);
+                const marker = new maptilersdk.Marker({
+                  color: "#FF0000",
+                  scale: 0.5
+              })
+              .setLngLat(marker_position)
+              .addTo(map);
+            }
+          }
+
+    </script>
+
 <!-- JS SCRIPTS -->
 
 
