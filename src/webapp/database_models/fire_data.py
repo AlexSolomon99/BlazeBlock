@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 
-BASE_USER_CONFIDENCE = 0.5
+BASE_USER_CONFIDENCE = 0.3
 LAT_DISTANCE_DIFF = 0.05
 LONG_DISTANCE_DIFF = 0.05
 NORTH_LAT = 48
@@ -66,24 +66,50 @@ class FireDataUtils():
         only_required_data = [[elem.latitude, elem.longitude, elem.confidence] for elem in all_requested_data]
         req_data_df = pd.DataFrame(columns=["latitude", "longitude", "confidence"], data=only_required_data)
 
-        data_dict = {}
+        data_dict = {
+            "type": "FeatureCollection",
+            "name": "Averaged_Data",
+            "crs": {
+                "type": "name",
+                "properties": {
+                "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+                }
+            }
+        }
+        features_list = []
 
         lat_idx, long_idx = 0, 0
 
         while lat_idx < len(grid_lat) - 1:
-            data_dict[lat_idx] = {}
             while long_idx < len(grid_long) - 1:
                 lat_low_bound, lat_high_bound = grid_lat[lat_idx], grid_lat[lat_idx + 1]
                 long_low_bound, long_high_bound = grid_long[long_idx], grid_long[long_idx + 1]
 
                 bounded_df = req_data_df.loc[(req_data_df["latitude"].between(lat_low_bound, lat_high_bound)) & 
                                              (req_data_df["longitude"].between(long_low_bound, long_high_bound))]
-                data_dict[lat_idx][long_idx] = bounded_df["confidence"].sum()
+                confidence = bounded_df["confidence"].sum()
+
+                feature_dict = {
+                    "type": "Feature",
+                    "properties": {
+                    "confidence": confidence,
+                    },
+                    "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                    grid_lat[lat_idx] + LAT_DISTANCE_DIFF/2,
+                    grid_lat[long_idx] + LONG_DISTANCE_DIFF/2
+                    ]
+                    }
+                }
+                features_list.append(feature_dict)
 
                 long_idx += 1
             
             long_idx = 0
             lat_idx += 1
+
+        data_dict["features"] = features_list
 
         return data_dict
 
