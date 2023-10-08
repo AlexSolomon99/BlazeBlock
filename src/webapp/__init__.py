@@ -20,12 +20,12 @@ def create_app():
     from .views import views
     from .map import map
     from .admin import admin
-    from .user_alert import uas
+    from .alert import alert
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(map, url_prefix='/')
     app.register_blueprint(admin, url_prefix='/')
-    app.register_blueprint(uas, url_prefix='/')
+    app.register_blueprint(alert, url_prefix='/')
 
     dirpath = app.instance_path + '/uploads'
     create_database(app)

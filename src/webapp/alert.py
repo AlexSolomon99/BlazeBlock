@@ -3,8 +3,8 @@ from webapp.database_models import fire_data
 
 from . import db
 
-uas = Blueprint('uas', __name__)
+alert = Blueprint('alert', __name__)
 
-@uas.route ('/uas', methods=['GET', 'POST'])
-def user_alert():
-    return render_template("uas.html")
+@alert.route ('/alert', methods=['GET', 'POST'])
+def alert_page():
+    return render_template("alert.html")
