@@ -8,8 +8,8 @@ import numpy as np
 from datetime import datetime, timedelta
 
 BASE_USER_CONFIDENCE = 0.3
-LAT_DISTANCE_DIFF = 0.05
-LONG_DISTANCE_DIFF = 0.05
+LAT_DISTANCE_DIFF = 0.1
+LONG_DISTANCE_DIFF = 0.1
 NORTH_LAT = 48
 SOUTH_LAT = 43.5
 WEST_LONG = 20
@@ -98,7 +98,7 @@ class FireDataUtils():
                     "type": "Point",
                     "coordinates": [
                     grid_lat[lat_idx] + LAT_DISTANCE_DIFF/2,
-                    grid_lat[long_idx] + LONG_DISTANCE_DIFF/2
+                    grid_long[long_idx] + LONG_DISTANCE_DIFF/2
                     ]
                     }
                 }
